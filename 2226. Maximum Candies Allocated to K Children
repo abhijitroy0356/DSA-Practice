@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int maximumCandies(vector<int>& candies, long long k) {
+        int maxi=0;
+        long long sum=0;
+        for(auto it:candies){
+            sum+=it;
+            maxi=max(it,maxi);
+        }
+        if(k>sum)return 0;
+        int l=1;
+        int r=maxi;
+        int ans=0;
+        while(l<=r){
+            int mid=l+(r-l)/2;
+            long long cnt=0;
+            for(int i=0;i<candies.size();i++){
+                cnt+=candies[i]/mid;
+            }
+            if(cnt>=k){
+                ans=mid;
+                l=mid+1;
+            }
+            else{
+               r=mid-1;
+            }
+        }
+        return ans;
+    }
+};
