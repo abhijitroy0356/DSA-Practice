@@ -1,0 +1,29 @@
+class Solution {
+    typedef long long ll;
+public:
+    long long repairCars(vector<int>& ranks, int cars) {
+        int maxi=0;
+        for(auto it:ranks){
+            maxi=max(maxi,it);
+        }
+        long long range=1ll * maxi * cars * cars;
+        long long l=1;
+        long long ans=0;
+        while(l<=range){
+            long long mid=l+(range-l)/2;
+            long long cnt=0;
+            for(auto it:ranks){
+                long long ref=mid/it;
+                cnt+=sqrt(ref);
+            }
+            if(cnt>=cars){
+                ans=mid;
+                range=mid-1;
+            }
+            else{
+                l=mid+1;
+            }
+        }
+        return ans;
+    }
+};
